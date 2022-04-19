@@ -1,24 +1,31 @@
-import cv2, numpy, sys, math
+import cv2, numpy, sys, math, getopt
 
 # Read target and key
-type = sys.argv[1]
-target_name = sys.argv[2]
-target = cv2.imread(target_name)
-key_name = sys.argv[3]
-key_image = cv2.imread(key_name)
+type = ""
+target_name = ""
+key_name = ""
+
+opts, args = getopt.getopt(sys.argv[1:], 't:i:k:')
+for opt, arg in opts:
+	if opt == '-t':
+		type = arg
+	elif opt == '-i':
+		target_name = arg
+		target = cv2.imread(target_name)
+		target_height, target_width, target_channel = target.shape
+	elif opt == '-k':
+		key_name = arg
+		key_image = cv2.imread(key_name)
+		key_height, key_width, key_channel = key_image.shape
 
 print("PixelSeed")
 print(f"Target image: { target_name }")
 print(f"Key image: { key_name }")
 
 if type.lower() == "e":
-	print("Status: ENCRYPTING")
+	print("ENCRYPTING")
 else:
-	print("Status: DECRYPTING")
-
-# Configuration
-target_height, target_width, target_channel = target.shape
-key_height, key_width, key_channel = key_image.shape
+	print("DECRYPTING")
 
 # Tiling
 if target_height != key_height or target_width != key_width:

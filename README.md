@@ -9,13 +9,13 @@ It uses the `key image` (another image) to generate a `seed`, and the seed will 
 ### How to use
 ```sh
 # Generate key
-python genkey.py <image-reference>
+python genkey.py -r <reference-image> -w <width> -h <height> -r <channel>
 
 # Encryption
-python app.py E <image-to-encrypt> <image-key>
+python app.py -t E -i <image-to-encrypt> -k <image-key>
 
 # Decryption
-python app.py D <image-to-decrypt> <image-key>
+python app.py -t D -i <image-to-decrypt> -k <image-key>
 ```
 
 ### Is it secure?
